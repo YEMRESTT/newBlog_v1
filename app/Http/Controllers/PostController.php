@@ -57,6 +57,7 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
+
         ]);
 
         $post->update($request->only(['title', 'content']));

@@ -2,7 +2,7 @@
 
 @section('title', 'Yazılar')
 @section('main-title', 'Tüm Blog Yazıları')
-@section('subtitle', 'Aşşağıda')
+@section('subtitle', 'Detay')
 
 
 
@@ -34,7 +34,7 @@
                     <td>{{ $post->read_count }}</td>
                     <td>
                         <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning btn-sm">Düzenle</a>
-                        <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
+                        <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline mb-3">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Sil</button>
@@ -49,9 +49,9 @@
 
                 {{-- ms-auto sağa yaslamak için çalışır ama sadece d-flex içinde --}}
                 <div class="ms-auto">
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    <form action="{{ route('logout') }}" method="POST"  style="display: inline;">
                         @csrf
-                        <button type="submit"  class="btn rounded-pill btn-danger">Çıkış yap</button>
+                        <button type="submit"  class="btn rounded-pill btn-danger ">Çıkış yap</button>
 
                         </button>
                     </form>

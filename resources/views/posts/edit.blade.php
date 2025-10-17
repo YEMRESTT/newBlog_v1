@@ -18,6 +18,7 @@
             <textarea name="content" id="content" rows="5" class="form-control" required>{{ $post->content }}</textarea>
         </div>
 
+
         <button type="submit" class="btn btn-primary">Güncelle</button>
         <a href="{{ route('posts.index') }}" class="btn btn-secondary">Geri Dön</a>
     </form>

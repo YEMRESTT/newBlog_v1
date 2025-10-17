@@ -20,7 +20,9 @@
                 <th>Başlık</th>
                 <th>Yazan</th>
                 <th>Tarih</th>
+                <th>Okunma sayısı</th>
                 <th width="180">İşlemler</th>
+
             </tr>
             </thead>
             <tbody>
@@ -29,6 +31,7 @@
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->user->name }}</td>
                     <td>{{ $post->created_at->format('d.m.Y H:i') }}</td>
+                    <td>{{ $post->read_count }}</td>
                     <td>
                         <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning btn-sm">Düzenle</a>
                         <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">

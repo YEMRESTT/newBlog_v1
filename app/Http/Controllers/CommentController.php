@@ -28,6 +28,6 @@ class CommentController extends Controller
         $comment->comment = $request->comment;
         $comment->save();
 
-        return redirect('/')->with('success', 'Yorum başarıyla eklendi!');
+        return redirect('/')->with('success', 'Yorum başarıyla eklendi');
     }
 }

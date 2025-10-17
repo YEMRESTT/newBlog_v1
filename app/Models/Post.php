@@ -11,7 +11,9 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
+        'image',
         'user_id',
+        'read_count',
     ];
 
     // Postu ekleyen kullanıcıyı ilişkilendirelim

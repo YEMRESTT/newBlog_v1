@@ -20,6 +20,7 @@ class HomeController extends Controller
     public function show($id)
     {
         $post = Post::with('user', 'comments')->findOrFail($id);
+        $post->increment('read_count'); // 👈 sayaç artışı
         return view('home.home-show', compact('post'));
     }
 }

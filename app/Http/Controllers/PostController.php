@@ -27,11 +27,18 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('uploads', 'public');
+        }
 
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
+            'image' => $imagePath,
             'user_id' => Auth::id(),
         ]);
 
@@ -63,4 +70,8 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Yazı silindi!');
     }
+
+
+
+
 }

@@ -13,11 +13,14 @@
                 <h2>{{ $post->title }}</h2>
                 <p><small>Yazan: {{ $post->user->name }} | {{ $post->created_at->format('d.m.Y') }}</small></p>
                 <p>{{ Str::limit($post->content, 150) }}</p>
-                <a href="{{ route('home.show', $post->id) }}">Yazının tamamını oku →</a>
+                <p>Okunma sayısı: {{ $post->read_count }}</p>
+                <a href="{{ route('home.show', $post->id) }}" >Yazının tamamını oku →</a>
 
 
 
-                @if($post->comments->count() > 0)
+
+
+            @if($post->comments->count() > 0)
 
                     <div style="margin-top: 15px;">
                         <h5>Yorumlar:</h5>

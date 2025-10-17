@@ -43,3 +43,7 @@ Route::get('/yazi/{id}', [HomeController::class, 'show'])->name('home.show');
 
 Route::get('/comments/{post_id}', [CommentController::class, 'createComment'])->name('comments.create');
 Route::post('/comments', [CommentController::class, 'addComment'])->name('comments.add');
+
+// okuma sayısı
+
+Route::post('/posts/{id}/increment-read', [PostController::class, 'incrementReadCount'])->name('posts.incrementRead');

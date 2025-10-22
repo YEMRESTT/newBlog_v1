@@ -7,6 +7,10 @@
 
 
 @section('content')
+    
+    @if($users != null)
+        <a href=""></a>
+    @endif
     <div class="card-body">
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

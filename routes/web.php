@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\http\controllers\CommentController;
+use App\http\controllers\Controller;
 
 
 
@@ -46,3 +47,7 @@ Route::post('/comments', [CommentController::class, 'addComment'])->name('commen
 // okuma sayısı
 
 Route::post('/posts/{id}/increment-read', [PostController::class, 'incrementReadCount'])->name('posts.incrementRead');
+
+
+//kullanıcı listesi sayfası
+Route::get('/users', [Controller::class, 'index'])->name('posts.users-list');

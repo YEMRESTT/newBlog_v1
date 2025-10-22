@@ -127,37 +127,23 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboards -->
                 <li class="menu-item active open">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <a href="{{route('posts.index')}}" class="menu-link mb-3 ">
+                        <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                        <div class="text-truncate" data-i18n="Dashboards">Admin Paneli</div>
+
+                    </a>
+                    <a href="{{route('home')}}" class="menu-link mb-3">
                         <i class="menu-icon tf-icons bx bx-home-smile"></i>
                         <div class="text-truncate" data-i18n="Dashboards">Paylaşımlar</div>
 
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item active">
-                            <a href="index.html" class="menu-link">
-                                <div class="text-truncate" data-i18n="Analytics">Analytics</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a
-                                href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/dashboards-crm.html"
-                                target="_blank"
-                                class="menu-link">
-                                <div class="text-truncate" data-i18n="CRM">CRM</div>
 
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a
-                                href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-dashboard.html"
-                                target="_blank"
-                                class="menu-link">
-                                <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
+                    <a href="{{route('posts.users-list')}}" class="menu-link mb-3">
+                        <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                        <div class="text-truncate" data-i18n="Dashboards">Kullanıcı listesi</div>
 
-                            </a>
-                        </li>
+                    </a>
 
-                    </ul>
                 </li>
 
 

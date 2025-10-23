@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class CommentController extends Controller
 {
     public function createComment($post_id)
     {
-        return view('home.comment', compact('post_id'));
+        $roles= Role::all();
+        return view('home.comment', compact('post_id', 'roles'));
     }
 
     public function addComment(Request $request)

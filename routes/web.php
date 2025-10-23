@@ -23,7 +23,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('role:admin|super-admin')->group(function () {
     Route::get('/dashboard', [PostController::class, 'index'])->name('posts.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
@@ -36,13 +36,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Yazı detay sayfası
-Route::get('/yazi/{id}', [HomeController::class, 'show'])->name('home.show');
+Route::get('/yazi/{id}', [HomeController::class, 'show'])->name('home.show')->middleware('role:kullanici|admin|super-admin');
 
 
 //yorum sayfaları
 
-Route::get('/comments/{post_id}', [CommentController::class, 'createComment'])->name('comments.create');
-Route::post('/comments', [CommentController::class, 'addComment'])->name('comments.add');
+Route::get('/comments/{post_id}', [CommentController::class, 'createComment'])->name('comments.create')->middleware('role:kullanici|admin|super-admin');
+Route::post('/comments', [CommentController::class, 'addComment'])->name('comments.add')->middleware('role:kullanici|admin|super-admin');
 
 // okuma sayısı
 
@@ -50,4 +50,4 @@ Route::post('/posts/{id}/increment-read', [PostController::class, 'incrementRead
 
 
 //kullanıcı listesi sayfası
-Route::get('/users', [Controller::class, 'index'])->name('posts.users-list');
+Route::get('/users', [Controller::class, 'index'])->name('posts.users-list')->middleware('role:super-admin');

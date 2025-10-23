@@ -48,13 +48,28 @@
 
 
                 {{-- ms-auto sağa yaslamak için çalışır ama sadece d-flex içinde --}}
-                <div class="ms-auto">
+                <div class="container-fluid d-flex">
                     <form action="{{ route('login.form') }}" method="GET" style="display: inline;">
                         @csrf
                         <button type="submit"  class="btn rounded-pill btn-danger">Giriş yap</button>
 
                         </button>
                     </form>
+                </div>
+
+
+                <div class="container-fluid d-flex">
+
+
+                    {{-- ms-auto sağa yaslamak için çalışır ama sadece d-flex içinde --}}
+                    <div class="ms-auto">
+                        <form action="{{ route('logout') }}" method="POST"  style="display: inline;">
+                            @csrf
+                            <button type="submit"  class="btn rounded-pill btn-danger ">Çıkış yap</button>
+
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
 

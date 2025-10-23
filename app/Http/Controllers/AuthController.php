@@ -32,9 +32,10 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        $user->assignRole('kullanici');
 
         Auth::login($user);
-        return redirect()->route('posts.index');
+        return redirect()->route('home');
 
 
         // return redirect()->route('dashboard')->with('success', 'Kayıt başarılı, hoş geldin!');
@@ -54,7 +55,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([

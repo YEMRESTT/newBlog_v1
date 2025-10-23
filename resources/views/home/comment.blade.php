@@ -7,6 +7,8 @@
     <div class="container mt-4">
         <h4>Yorum Ekle</h4>
 
+
+
         <form action="{{ route('comments.add') }}" method="POST">
             @csrf
             <input type="hidden" name="post_id" value="{{ $post_id }}">
@@ -25,5 +27,6 @@
 
             <button type="submit" class="btn btn-primary" >Yorumu Gönder</button>
         </form>
+
     </div>
 @endsection

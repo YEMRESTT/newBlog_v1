@@ -60,7 +60,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="index.html" class="app-brand-link">
+                <a href="{{route('home')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <span class="text-primary">
                   <svg
@@ -112,7 +112,7 @@
                   </svg>
                 </span>
               </span>
-                    <span class="app-brand-text demo menu-text fw-bold ms-2">Blog</span>
+                    <span class="app-brand-text demo menu-text fw-bold ms-2" >Blog</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -127,22 +127,32 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboards -->
                 <li class="menu-item active open">
+
+                    @role('admin|super-admin')
                     <a href="{{route('posts.index')}}" class="menu-link mb-3 ">
                         <i class="menu-icon tf-icons bx bx-home-smile"></i>
                         <div class="text-truncate" data-i18n="Dashboards">Admin Paneli</div>
 
                     </a>
+                    @endrole
+
+
                     <a href="{{route('home')}}" class="menu-link mb-3">
                         <i class="menu-icon tf-icons bx bx-home-smile"></i>
                         <div class="text-truncate" data-i18n="Dashboards">Paylaşımlar</div>
 
                     </a>
 
+
+                    @role('super-admin')
+
                     <a href="{{route('posts.users-list')}}" class="menu-link mb-3">
                         <i class="menu-icon tf-icons bx bx-home-smile"></i>
                         <div class="text-truncate" data-i18n="Dashboards">Kullanıcı listesi</div>
 
                     </a>
+                    @endrole
+
 
                 </li>
 
@@ -180,6 +190,16 @@
 
 
                     <div class="card">
+                        @if(Auth::check())
+                            <div class="text-end">
+                                <p>
+                                    <strong>{{ Auth::user()->name }}</strong>
+                                    <span class="badge bg-primary">
+                                  {{ Auth::user()->getRoleNames()->first() }}
+                                </span>
+                                </p>
+                            </div>
+                        @endif
 
                         <h4 class="card-header">@yield('main-title')</h4>
                         <h6 class="card-header">@yield('subtitle')</h6>

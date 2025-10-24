@@ -9,13 +9,13 @@
     <div class="container py-4">
 
         @foreach ($posts as $post)
-            <div class="row justify-content-center mb-4">
+            <div class="row justify-content-center mb-9">
                 <div class="col-12 col-md-10 col-lg-8">
-                    <div class="card shadow-sm border-0 rounded-4 p-4 hover-card equal-card">
+                    <div class="card shadow-lg border-0 rounded-4 p-4 bg-light hover-shadow">
 
                         <h2>{{ $post->title }}</h2>
                         <p><small>Yazan: {{ $post->user->name }} | {{ $post->created_at->format('d.m.Y') }}</small></p>
-                        <p>{{ Str::limit($post->content, 150) }}</p>
+                        <p>{{ Str::limit($post->content, 4) }}</p>
                         <p>Okunma sayısı: {{ $post->read_count }}</p>
                         <a href="{{ route('home.show', $post->id) }}">Yazının tamamını oku →</a>
 

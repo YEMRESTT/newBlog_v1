@@ -146,7 +146,7 @@
 
                     @role('super-admin')
 
-                    <a href="{{route('posts.users-list')}}" class="menu-link mb-3">
+                    <a href="{{route('admin.users')}}" class="menu-link mb-3">
                         <i class="menu-icon tf-icons bx bx-home-smile"></i>
                         <div class="text-truncate" data-i18n="Dashboards">Kullanıcı listesi</div>
 
@@ -191,25 +191,41 @@
 
                     <div class="card">
                         @if(Auth::check())
-                            <div class="text-end">
-                                <p>
-                                    <strong>{{ Auth::user()->name }}</strong>
-                                    <span class="badge bg-primary">
-                                  {{ Auth::user()->getRoleNames()->first() }}
-                                </span>
-                                </p>
+                            <div class="  text-end mt-3">
+                                <div style="
+                                     display: inline-block;
+                                     border: 2px solid #0d6efd;
+                                     border-radius: 12px;
+                                     padding: 10px 15px;
+                                     background-color: #f8f9fa;
+                                     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                                ">
+                                    <strong style="font-size: 16px; color:#0d6efd;">
+                                        {{ Auth::user()->name }}
+                                    </strong>
+                                    <span class="badge bg-primary ms-2" style="font-size: 14px;">
+                                        {{ Auth::user()->getRoleNames()->first() }} <br>
+                                    </span>
+                                </div>
                             </div>
                         @endif
 
-                        <h4 class="card-header">@yield('main-title')</h4>
-                        <h6 class="card-header">@yield('subtitle')</h6>
-                        @yield('content')
-                        <div class="card-body">
-                            <p class="card-text">
 
-
-
+                        <div class="card card-header">
+                            <h4 >@yield('main-title')</h4>
                         </div>
+
+
+                        <div class="card card-header">
+                            <h5 >@yield('subtitle')</h5>
+                        </div>
+
+
+                        <div class="card card-header">
+                            @yield('content')
+                        </div>
+
+
                     </div>
 
                 </div>

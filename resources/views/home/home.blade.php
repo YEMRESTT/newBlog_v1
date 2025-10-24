@@ -6,72 +6,58 @@
 
 @section('content')
 
-    <div class="container" >
+    <div class="container py-4">
 
         @foreach ($posts as $post)
-            <div style="border-bottom: 35px solid #ddd; margin-bottom: 20px;">
-                <h2>{{ $post->title }}</h2>
-                <p><small>Yazan: {{ $post->user->name }} | {{ $post->created_at->format('d.m.Y') }}</small></p>
-                <p>{{ Str::limit($post->content, 150) }}</p>
-                <p>Okunma sayısı: {{ $post->read_count }}</p>
-                <a href="{{ route('home.show', $post->id) }}" >Yazının tamamını oku →</a>
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="card shadow-sm border-0 rounded-4 p-4 hover-card equal-card">
 
+                        <h2>{{ $post->title }}</h2>
+                        <p><small>Yazan: {{ $post->user->name }} | {{ $post->created_at->format('d.m.Y') }}</small></p>
+                        <p>{{ Str::limit($post->content, 150) }}</p>
+                        <p>Okunma sayısı: {{ $post->read_count }}</p>
+                        <a href="{{ route('home.show', $post->id) }}">Yazının tamamını oku →</a>
 
-
-
-
-            @if($post->comments->count() > 0)
-
-                    <div style="margin-top: 15px;">
-                        <h5>Yorumlar:</h5>
-
-                        @foreach($post->comments as $comment)
-
-                            <div style="margin-left: 20px; border-left: 3px solid #ccc; padding-left: 10px; margin-bottom: 10px;">
-                                <strong>{{ $comment->name }}</strong> ({{ $comment->email }})<br>
-                                <p>{{ $comment->comment }}</p>
+                        @if($post->comments->count() > 0)
+                            <div class="mt-3">
+                                <h5>Yorumlar:</h5>
+                                @foreach($post->comments as $comment)
+                                    <div class="comment-box">
+                                        <strong>{{ $comment->name }}</strong> ({{ $comment->email }})<br>
+                                        <p>{{ $comment->comment }}</p>
+                                    </div>
+                                @endforeach
                             </div>
+                        @endif
 
-                        @endforeach
+                        <a href="{{ route('comments.create', $post->id) }}" class="btn btn-outline-secondary mt-2">Yorum Ekle</a>
 
                     </div>
-
-                @endif
-                <a href="{{ route('comments.create', $post->id) }}" class="btn btn-outline-secondary mt-2">Yorum Ekle</a>
-
+                </div>
             </div>
-
-
         @endforeach
 
-            <div class="container-fluid d-flex">
+        <div class="container-fluid d-flex">
+            {{-- Eğer kullanıcı giriş yapmamışsa GİRİŞ YAP butonu göster --}}
+            @guest
+                <form action="{{ route('login.form') }}" method="GET" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn rounded-pill btn-danger">Giriş yap</button>
+                </form>
+            @endguest
 
-
-                {{-- ms-auto sağa yaslamak için çalışır ama sadece d-flex içinde --}}
-                <div class="container-fluid d-flex">
-                    <form action="{{ route('login.form') }}" method="GET" style="display: inline;">
+            {{-- Eğer kullanıcı giriş yapmışsa ÇIKIŞ YAP butonu göster --}}
+            @auth
+                <div class="ms-auto">
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                         @csrf
-                        <button type="submit"  class="btn rounded-pill btn-danger">Giriş yap</button>
-
-                        </button>
+                        <button type="submit" class="btn rounded-pill btn-danger">Çıkış yap</button>
                     </form>
                 </div>
-
-
-                <div class="container-fluid d-flex">
-
-
-                    {{-- ms-auto sağa yaslamak için çalışır ama sadece d-flex içinde --}}
-                    <div class="ms-auto">
-                        <form action="{{ route('logout') }}" method="POST"  style="display: inline;">
-                            @csrf
-                            <button type="submit"  class="btn rounded-pill btn-danger ">Çıkış yap</button>
-
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            @endauth
+        </div>
 
     </div>
+
 @endsection

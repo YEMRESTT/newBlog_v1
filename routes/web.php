@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\http\controllers\CommentController;
 use App\http\controllers\Controller;
-
+use App\Http\Controllers\AdminController;
 
 
 
@@ -41,13 +41,20 @@ Route::get('/yazi/{id}', [HomeController::class, 'show'])->name('home.show')->mi
 
 //yorum sayfaları
 
-Route::get('/comments/{post_id}', [CommentController::class, 'createComment'])->name('comments.create')->middleware('role:kullanici|admin|super-admin');
-Route::post('/comments', [CommentController::class, 'addComment'])->name('comments.add')->middleware('role:kullanici|admin|super-admin');
+Route::get('/comments/{post_id}', [CommentController::class, 'createComment'])->name('comments.create');
+Route::post('/comments', [CommentController::class, 'addComment'])->name('comments.add');
 
 // okuma sayısı
 
 Route::post('/posts/{id}/increment-read', [PostController::class, 'incrementReadCount'])->name('posts.incrementRead');
 
 
-//kullanıcı listesi sayfası
-Route::get('/users', [Controller::class, 'index'])->name('posts.users-list')->middleware('role:super-admin');
+
+// yeni kullanıcı listesi
+
+
+Route::middleware( 'role:super-admin')->group(function () {
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit-role');
+    Route::post('/admin/users/{id}', [AdminController::class, 'update'])->name('admin.update-role');
+});

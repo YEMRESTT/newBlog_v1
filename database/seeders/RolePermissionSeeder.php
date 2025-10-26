@@ -2,19 +2,38 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolePermissionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Role::create(['name' => 'kullanici']);
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'super-admin']);
+        // ---- İzinleri oluştur ----
+
+        //kullanıcı
+        Permission::firstOrCreate(['name' => 'view post']); // post görüntüle
+        Permission::firstOrCreate(['name' => 'add comment']); // yorum yapmak
+        Permission::firstOrCreate(['name' => 'see comments']); // yorumları gör
+        //admin
+        Permission::firstOrCreate(['name' => 'create post']); // post oluştur
+        Permission::firstOrCreate(['name' => 'edit post']);  // post düzenle
+        Permission::firstOrCreate(['name' => 'delete post']); // post sil
+        // super admin
+        Permission::firstOrCreate(['name' => 'edit role']); // rolü düzenle
+        Permission::firstOrCreate(['name' => 'edit permission']); // izinleri düzenle
+
+
+        // ---- Roller ----
+        $kullanici = Role::firstOrCreate(['name' => 'kullanici']);
+        $admin = Role::firstOrCreate(['name' => 'admin']);
+        $superAdmin = Role::firstOrCreate(['name' => 'super-admin']);
+
+        // ---- Rollerle izinleri ilişkilendir ----
+        $kullanici->givePermissionTo(['view post','add comment','see comments']); // Sadece yorum yapabilir
+        $admin->givePermissionTo(['view post','add comment','see comments',
+            'create post','edit post','delete post']);
+        $superAdmin->givePermissionTo(Permission::all()); // Tüm izinler
     }
 }

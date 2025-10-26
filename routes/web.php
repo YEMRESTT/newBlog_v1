@@ -5,8 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\http\controllers\CommentController;
-use App\http\controllers\Controller;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPermissionController;
 
 
 
@@ -50,11 +50,16 @@ Route::post('/posts/{id}/increment-read', [PostController::class, 'incrementRead
 
 
 
-// yeni kullanıcı listesi
+// Super admin sayfaları ( kullanıcıları listeler ve rollerini değiştirebilir)
 
 
 Route::middleware( 'role:super-admin')->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit-role');
     Route::post('/admin/users/{id}', [AdminController::class, 'update'])->name('admin.update-role');
+});
+
+Route::middleware(['role:super-admin'])->group(function () {
+    Route::get('/admin/permissions', [AdminPermissionController::class, 'index'])->name('admin.permissions');
+    Route::post('/admin/permissions/{id}', [AdminPermissionController::class, 'update'])->name('admin.permissions.update');
 });

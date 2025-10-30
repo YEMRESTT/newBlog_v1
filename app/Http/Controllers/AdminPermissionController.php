@@ -25,8 +25,18 @@ class AdminPermissionController extends Controller
     {
         $user = User::findOrFail($id);
 
+
+
+        $permissions = $request->input('permissions', []);
+
+        // Kullanıcının izinlerini tamamen güncelle
+        //$user->syncPermissions($permissions);
+
         // Kullanıcının mevcut izinlerini sıfırla ve seçilenleri ata
-        $user->syncPermissions($request->permissions ?? []);
+        $user->syncPermissions($request->input('permissions', []));
+
+        dd($permissions, $user->permissions);
+
 
         return redirect()->back()->with('success', 'Kullanıcı izinleri güncellendi.');
     }

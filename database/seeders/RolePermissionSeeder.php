@@ -20,9 +20,8 @@ class RolePermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'create post']); // post oluştur
         Permission::firstOrCreate(['name' => 'edit post']);  // post düzenle
         Permission::firstOrCreate(['name' => 'delete post']); // post sil
-        // super admin
-        Permission::firstOrCreate(['name' => 'edit role']); // rolü düzenle
-        Permission::firstOrCreate(['name' => 'edit permission']); // izinleri düzenle
+        Permission::firstOrCreate(['name' => 'kullanıcı yönet']); // post sil
+
 
 
         // ---- Roller ----

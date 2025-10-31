@@ -23,14 +23,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
-Route::middleware('role:admin|super-admin')->group(function () {
-    Route::get('/dashboard', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::middleware('permission:düzenle')->group(function () {
+
+
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
 });
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('permission:sil');
+Route::get('/dashboard', [PostController::class, 'index'])->name('posts.index')->middleware('permission:admin paneli görüntüle');
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('permission:yeni yazı ekle');
+
 
 // Ana sayfa (yazı listesi)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -53,11 +57,11 @@ Route::post('/posts/{id}/increment-read', [PostController::class, 'incrementRead
 // Super admin sayfaları ( kullanıcıları listeler ve rollerini değiştirebilir)
 
 
-Route::middleware( 'role:super-admin')->group(function () {
-    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
+
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users')->middleware('permission:kullanıcı listesi paneli görüntüle');
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit-role');
     Route::post('/admin/users/{id}', [AdminController::class, 'update'])->name('admin.update-role');
-});
+
 
 Route::middleware(['role:super-admin'])->group(function () {
     Route::get('/admin/permissions', [AdminPermissionController::class, 'index'])->name('admin.permissions');

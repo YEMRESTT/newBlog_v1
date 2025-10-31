@@ -49,7 +49,7 @@
     <div class="row g-4">
         @forelse ($posts as $post)
             <div class="col-12">
-                @can('view post')
+                @can('paylaşımlar paneli görüntüle')
                     {{-- Blog yazısı kartı --}}
                     <div class="card border-0 shadow-sm hover-card">
                         <div class="card-body p-4">
@@ -90,7 +90,7 @@
                             <hr class="my-4">
 
                             {{-- Yorumlar bölümü --}}
-                            @can('see comments')
+                            @can('paylaşımlar paneli görüntüle')
                                 @if($post->comments->count() > 0)
                                     <div class="comments-section">
                                         <h5 class="mb-3">

@@ -35,7 +35,7 @@
         </div>
     @endif
 
-    @can('create post')
+    @can('yeni yazı ekle')
         {{-- Yeni yazı ekleme formu kartı --}}
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
@@ -131,6 +131,7 @@
                     </div>
 
                     {{-- Görsel yükleme alanı --}}
+                    @can('resim ekle')
                     <div class="mb-4">
                         <label for="image" class="form-label">
                             <i class="bi bi-image me-1"></i>
@@ -164,6 +165,7 @@
                             </div>
                         </div>
                     </div>
+                    @endcan
 
                     {{-- Form butonları --}}
                     <div class="d-flex gap-2 justify-content-between align-items-center pt-3 border-top">

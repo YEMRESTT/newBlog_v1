@@ -12,15 +12,30 @@ class RolePermissionSeeder extends Seeder
     {
         // ---- İzinleri oluştur ----
 
-        //kullanıcı
-        Permission::firstOrCreate(['name' => 'view post']); // post görüntüle
-        Permission::firstOrCreate(['name' => 'add comment']); // yorum yapmak
-        Permission::firstOrCreate(['name' => 'see comments']); // yorumları gör
-        //admin
-        Permission::firstOrCreate(['name' => 'create post']); // post oluştur
-        Permission::firstOrCreate(['name' => 'edit post']);  // post düzenle
-        Permission::firstOrCreate(['name' => 'delete post']); // post sil
-        Permission::firstOrCreate(['name' => 'kullanıcı yönet']); // post sil
+        //Admin paneli kısmı
+        Permission::firstOrCreate(['name' => 'admin paneli görüntüle']);
+        Permission::firstOrCreate(['name' => 'yeni yazı ekle']);
+        Permission::firstOrCreate(['name' => 'resim ekle']); // yeni yazı ekleyemezsem bunuda ekleyemeyecem
+        Permission::firstOrCreate(['name' => 'başlık gör']);
+        Permission::firstOrCreate(['name' => 'yazan gör']);
+        Permission::firstOrCreate(['name' => 'tarih gör']);
+        Permission::firstOrCreate(['name' => 'okunma sayısı gör']);
+        Permission::firstOrCreate(['name' => 'düzenle']);
+        Permission::firstOrCreate(['name' => 'sil']);
+
+        // Paylaşımlar paneli kısmı
+        Permission::firstOrCreate(['name' => 'paylaşımlar paneli görüntüle']);
+        Permission::firstOrCreate(['name' => 'devamını oku']);
+        Permission::firstOrCreate(['name' => 'yorum ekle']);
+
+
+        // kullanıcı listesi paneli
+        Permission::firstOrCreate(['name' => 'kullanıcı listesi paneli görüntüle']);
+        Permission::firstOrCreate(['name' => 'ıd gör']);
+        Permission::firstOrCreate(['name' => 'ad soyad gör']);
+        Permission::firstOrCreate(['name' => 'eposta gör']);
+        Permission::firstOrCreate(['name' => 'mevcut rol']);
+        Permission::firstOrCreate(['name' => 'rol düzenle']);
 
 
 
@@ -30,9 +45,9 @@ class RolePermissionSeeder extends Seeder
         $superAdmin = Role::firstOrCreate(['name' => 'super-admin']);
 
         // ---- Rollerle izinleri ilişkilendir ----
-        $kullanici->givePermissionTo(['view post','add comment','see comments']); // Sadece yorum yapabilir
-        $admin->givePermissionTo(['view post','add comment','see comments',
-            'create post','edit post','delete post']);
+        $kullanici->givePermissionTo(['paylaşımlar paneli görüntüle','devamını oku','yorum ekle']); // Sadece yorum yapabilir
+        $admin->givePermissionTo(['admin paneli görüntüle','yeni yazı ekle','resim ekle','başlık gör','yazan gör', 'tarih gör','okunma sayısı gör',
+            'düzenle','sil','paylaşımlar paneli görüntüle','devamını oku','yorum ekle']);
         $superAdmin->givePermissionTo(Permission::all()); // Tüm izinler
     }
 }

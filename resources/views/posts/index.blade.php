@@ -24,7 +24,7 @@
     {{-- Üst işlem çubuğu --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         {{-- Yeni yazı ekleme butonu --}}
-        @can('create post')
+        @can('yeni yazı ekle')
             <a href="{{ route('posts.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-circle me-2"></i>
                 Yeni Yazı Ekle
@@ -48,22 +48,33 @@
         <table class="table table-hover table-bordered align-middle text-center">
             <thead class="table-dark">
             <tr>
+                @can( 'başlık gör')
                 <th scope="col" class="text-start">
                     <i class="bi bi-file-text me-1"></i>
                     Başlık
                 </th>
+                @endcan
+
+                @can('yazan gör')
                 <th scope="col">
                     <i class="bi bi-person me-1"></i>
                     Yazan
                 </th>
+                @endcan
+
+                @can('tarih gör')
                 <th scope="col">
                     <i class="bi bi-calendar-event me-1"></i>
                     Tarih
                 </th>
+                @endcan
+
+                @can('okunma sayısı gör')
                 <th scope="col">
                     <i class="bi bi-eye me-1"></i>
                     Okunma
                 </th>
+                @endcan
                 <th scope="col" width="200" >
                     <i class="bi bi-gear me-1"></i>
                     İşlemler
@@ -74,47 +85,54 @@
             {{-- Yazıları listeleme döngüsü --}}
             @forelse ($posts as $post)
                 <tr>
+                    @can( 'başlık gör')
                     {{-- Yazı başlığı --}}
                     <td class="text-start fw-semibold">
                         <strong>{{ $post->title }}</strong>
                     </td>
+                    @endcan
 
+                    @can('yazan gör')
                     {{-- Yazar adı --}}
                     <td>
                             <span class="badge bg-info text-dark px-3 py-2">
                                 {{ $post->user->name }}
                             </span>
                     </td>
+                    @endcan
 
+                    @can('tarih gör')
                     {{-- Yayınlanma tarihi --}}
                     <td>
                         <small class="text-muted">
                             {{ $post->created_at->format('d.m.Y H:i') }}
                         </small>
                     </td>
+                    @endcan
 
+                    @can('okunma sayısı gör')
                     {{-- Okunma sayısı --}}
                     <td>
                             <span class="badge bg-secondary px-3 py-2">
                                 {{ $post->read_count }}
                             </span>
                     </td>
-
+                    @endcan
                     {{-- İşlem butonları --}}
                     <td >
                         <div class="d-inline-flex gap-2">
                             {{-- Düzenle butonu --}}
-                            @can('edit post')
+
                                 <a href="{{ route('posts.edit', $post) }}"
                                    class="btn btn-warning btn-sm"
                                    title="Düzenle">
                                     <i class="bi bi-pencil-square"></i>
                                     Düzenle
                                 </a>
-                            @endcan
+
 
                             {{-- Sil butonu --}}
-                            @can('delete post')
+
                                 <form action="{{ route('posts.destroy', $post) }}"
                                       method="POST"
                                       onsubmit="return confirm('Bu yazıyı silmek istediğinize emin misiniz?');">
@@ -127,7 +145,7 @@
                                         Sil
                                     </button>
                                 </form>
-                            @endcan
+
                         </div>
                     </td>
                 </tr>
@@ -137,12 +155,12 @@
                     <td colspan="5" class="text-center text-muted py-4">
                         <i class="bi bi-inbox fs-1 d-block mb-2"></i>
                         <p class="mb-0">Henüz hiç yazı eklenmemiş.</p>
-                        @can('create post')
+
                             <a href="{{ route('posts.create') }}" class="btn btn-primary btn-sm mt-2">
                                 <i class="bi bi-plus-circle me-1"></i>
                                 İlk Yazıyı Ekle
                             </a>
-                        @endcan
+
                     </td>
                 </tr>
             @endforelse

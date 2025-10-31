@@ -291,26 +291,30 @@
 
     <nav class="nav flex-column">
         <!-- Admin Paneli Link -->
-        @role('admin|super-admin')
+        @can('admin paneli görüntüle')
         <a href="{{route('posts.index')}}" class="nav-link">
             <i class="bi bi-speedometer2"></i>
             <span>Admin Paneli</span>
         </a>
-        @endrole
+        @endcan
 
         <!-- Paylaşımlar Link -->
+        @can('paylaşımlar paneli görüntüle')
         <a href="{{route('home')}}" class="nav-link active">
             <i class="bi bi-file-earmark-text"></i>
             <span>Paylaşımlar</span>
         </a>
+        @endcan
 
         <!-- Kullanıcı Listesi Link -->
-        @role('super-admin')
+
+        @can('kullanıcı listesi paneli görüntüle')
         <a href="{{route('admin.users')}}" class="nav-link">
             <i class="bi bi-people"></i>
             <span>Kullanıcı Listesi</span>
         </a>
-        @endrole
+        @endcan
+
 
         <!-- Rol Düzenle Link -->
         @role('super-admin')

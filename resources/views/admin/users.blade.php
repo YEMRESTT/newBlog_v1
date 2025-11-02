@@ -1,3 +1,4 @@
+@can('kullanıcı listesi paneli görüntüle')
 @extends('posts.layoutposts')
 
 {{-- Sayfa başlığı (tarayıcı sekmesi) --}}
@@ -46,22 +47,35 @@
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
             <tr>
+                @can('ıd gör')
                 <th scope="col" width="80">
                     <i class="bi bi-hash me-1"></i>
                     ID
                 </th>
+                @endcan
+
+                @can('ad soyad gör')
                 <th scope="col">
                     <i class="bi bi-person me-1"></i>
                     Ad Soyad
                 </th>
+                @endcan
+
+                @can('eposta gör')
                 <th scope="col">
                     <i class="bi bi-envelope me-1"></i>
                     E-posta
                 </th>
+                @endcan
+
+                @can('mevcut rol')
                 <th scope="col">
                     <i class="bi bi-shield-check me-1"></i>
                     Mevcut Rol
                 </th>
+                @endcan
+
+
                 <th scope="col" width="180" class="text-center">
                     <i class="bi bi-gear me-1"></i>
                     İşlemler
@@ -73,11 +87,14 @@
             @forelse($users as $user)
                 <tr>
                     {{-- Kullanıcı ID --}}
+                    @can('ıd gör')
                     <td>
                         <strong class="text-primary">#{{ $user->id }}</strong>
                     </td>
+                    @endcan
 
                     {{-- Kullanıcı adı --}}
+                    @can('ad soyad gör')
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="avatar-initial rounded-circle bg-primary text-white me-2 d-flex align-items-center justify-content-center"
@@ -87,14 +104,18 @@
                             <strong>{{ $user->name }}</strong>
                         </div>
                     </td>
+                    @endcan
 
                     {{-- E-posta adresi --}}
+                    @can('eposta gör')
                     <td>
                         <i class="bi bi-envelope text-muted me-1"></i>
                         <span class="text-muted">{{ $user->email }}</span>
                     </td>
+                    @endcan
 
                     {{-- Kullanıcı rolleri --}}
+                    @can('mevcut rol')
                     <td>
                         @if($user->roles->count() > 0)
                             @foreach($user->roles as $role)
@@ -110,8 +131,10 @@
                                 </span>
                         @endif
                     </td>
+                    @endcan
 
                     {{-- İşlem butonları --}}
+                    @can('rol düzenle')
                     <td class="text-center">
                         <a href="{{ route('admin.edit-role', $user->id) }}"
                            class="btn btn-primary btn-sm"
@@ -120,6 +143,7 @@
                             Rolü Düzenle
                         </a>
                     </td>
+                    @endcan
                 </tr>
             @empty
                 {{-- Kullanıcı bulunamadığında gösterilecek mesaj --}}
@@ -177,3 +201,4 @@
     </div>
 
 @endsection
+@endcan

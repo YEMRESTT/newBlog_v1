@@ -77,12 +77,14 @@
 
     {{-- Rol düzenleme formu kartı --}}
     <div class="card border-0 shadow-sm">
+
         <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
             <h5 class="mb-0">
                 <i class="bi bi-shield-lock me-2"></i>
                 Rol Ataması
             </h5>
         </div>
+
 
         <div class="card-body p-4">
             {{-- Bilgilendirme kutusu --}}
@@ -100,6 +102,7 @@
                 @csrf
 
                 {{-- Rol seçim alanı --}}
+                @can('rol düzenle')
                 <div class="mb-4">
                     <label for="role" class="form-label">
                         <i class="bi bi-award me-1"></i>
@@ -149,6 +152,7 @@
                         Rolü Güncelle
                     </button>
                 </div>
+                @endcan
             </form>
         </div>
     </div>

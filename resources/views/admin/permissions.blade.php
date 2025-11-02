@@ -1,3 +1,4 @@
+@can('rol düzenle')
 @extends('posts.layoutposts')
 
 {{-- Sayfa başlığı (tarayıcı sekmesi) --}}
@@ -203,3 +204,4 @@
     @endif
 
 @endsection
+@endcan

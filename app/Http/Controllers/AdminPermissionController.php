@@ -9,10 +9,7 @@ use Illuminate\Routing\Controller;
 
 class AdminPermissionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:super-admin']); // sadece süper admin erişir
-    }
+
 
     public function index()
     {

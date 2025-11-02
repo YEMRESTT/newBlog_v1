@@ -122,6 +122,7 @@
                     <td >
                         <div class="d-inline-flex gap-2">
                             {{-- Düzenle butonu --}}
+                                @can('düzenle')
 
                                 <a href="{{ route('posts.edit', $post) }}"
                                    class="btn btn-warning btn-sm"
@@ -129,10 +130,11 @@
                                     <i class="bi bi-pencil-square"></i>
                                     Düzenle
                                 </a>
+                                @endcan
 
 
                             {{-- Sil butonu --}}
-
+                                @can('sil')
                                 <form action="{{ route('posts.destroy', $post) }}"
                                       method="POST"
                                       onsubmit="return confirm('Bu yazıyı silmek istediğinize emin misiniz?');">
@@ -145,6 +147,7 @@
                                         Sil
                                     </button>
                                 </form>
+                            @endcan
 
                         </div>
                     </td>
@@ -155,11 +158,12 @@
                     <td colspan="5" class="text-center text-muted py-4">
                         <i class="bi bi-inbox fs-1 d-block mb-2"></i>
                         <p class="mb-0">Henüz hiç yazı eklenmemiş.</p>
-
+                            @can('yeni yazı ekle')
                             <a href="{{ route('posts.create') }}" class="btn btn-primary btn-sm mt-2">
                                 <i class="bi bi-plus-circle me-1"></i>
                                 İlk Yazıyı Ekle
                             </a>
+                        @endcan
 
                     </td>
                 </tr>

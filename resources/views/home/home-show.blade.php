@@ -11,7 +11,7 @@
 
 {{-- Ana içerik alanı --}}
 @section('content')
-
+@can('devamını oku')
     {{-- Yazı meta bilgileri (kompakt) --}}
     <div class="d-flex flex-wrap gap-2 mb-3">
         <small class="text-muted">
@@ -48,7 +48,7 @@
     <hr class="my-4">
 
     {{-- Yorumlar bölümü (sade) --}}
-    @can('see comments')
+
         @if($post->comments->count() > 0)
             <div class="mb-4">
                 <h5 class="mb-3">
@@ -67,7 +67,7 @@
                 @endforeach
             </div>
         @endif
-    @endcan
+
 
     {{-- Etkileşim butonları (sadece gerekli olanlar) --}}
     <div class="d-flex gap-2 justify-content-between align-items-center flex-wrap">
@@ -77,21 +77,23 @@
         </a>
 
         <div class="d-flex gap-2">
-            @can('add comment')
+                @can('yorum ekle')
                 <a href="{{ route('comments.create', $post->id) }}" class="btn btn-primary btn-sm">
                     <i class="bi bi-chat-left-text me-1"></i>
                     Yorum Yap
                 </a>
-            @endcan
+                @endcan
 
-            @can('edit post')
+
+                @can('düzenle')
                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil me-1"></i>
                     Düzenle
                 </a>
-            @endcan
+                @endcan
 
-            @can('delete post')
+
+            @can('sil')
                 <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
@@ -119,5 +121,5 @@
             margin-bottom: 1rem;
         }
     </style>
-
+@endcan
 @endsection

@@ -6,9 +6,6 @@
     <title>@yield('title', 'Blog Yönetim Paneli')</title>
     <meta name="description" content="Modern Blog Yönetim Sistemi">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset('panel/assets/img/favicon/favicon.ico')}}">
-
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -18,8 +15,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{asset('panel/assets/css/demo.css')}}">
 
     <style>
         :root {
@@ -317,12 +312,12 @@
 
 
         <!-- Rol Düzenle Link -->
-        @role('super-admin')
+        @can('rol düzenle')
         <a href="{{route('admin.permissions')}}" class="nav-link">
             <i class="bi bi-shield-lock"></i>
             <span>Rol Düzenle</span>
         </a>
-        @endrole
+        @endcan
     </nav>
 </aside>
 

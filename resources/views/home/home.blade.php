@@ -82,10 +82,12 @@
                             </p>
 
                             {{-- Devamını oku butonu --}}
+                            @can('devamını oku')
                             <a href="{{ route('home.show', $post->id) }}" class="btn btn-outline-primary">
                                 <i class="bi bi-arrow-right-circle me-1"></i>
                                 Devamını Oku
                             </a>
+                            @endcan
 
                             <hr class="my-4">
 
@@ -126,15 +128,17 @@
                                         </div>
                                     </div>
                                 @else
+                                    @can('yorum ekle')
                                     <div class="text-center text-muted py-3">
                                         <i class="bi bi-chat-square-text fs-3 d-block mb-2"></i>
                                         <p class="mb-0">Henüz yorum yapılmamış. İlk yorumu siz yapın!</p>
                                     </div>
+                                    @endcan
                                 @endif
                             @endcan
 
                             {{-- Yorum ekleme butonu --}}
-                            @can('add comment')
+                            @can('yorum ekle')
                                 <div class="mt-3">
                                     <a href="{{ route('comments.create', $post->id) }}" class="btn btn-outline-secondary">
                                         <i class="bi bi-chat-left-text me-1"></i>

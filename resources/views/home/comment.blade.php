@@ -35,7 +35,7 @@
         </div>
     @endif
 
-    @can('add comment')
+    @can('yorum ekle')
         {{-- Yorum formu kartı --}}
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">

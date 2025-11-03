@@ -49,5 +49,7 @@ class RolePermissionSeeder extends Seeder
         $admin->givePermissionTo(['admin paneli görüntüle','yeni yazı ekle','resim ekle','başlık gör','yazan gör', 'tarih gör','okunma sayısı gör',
             'düzenle','sil','paylaşımlar paneli görüntüle','devamını oku','yorum ekle']);
         $superAdmin->givePermissionTo(Permission::all()); // Tüm izinler
+        $basicrole = Role::create(['name' => 'basic-role']);
+
     }
 }

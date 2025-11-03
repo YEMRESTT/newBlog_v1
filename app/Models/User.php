@@ -24,6 +24,8 @@ class User extends Authenticatable
         'is_admin',
         'created_at',
         'password',
+        'google_id',      // EKLENDI
+        'avatar',         // EKLENDI
     ];
 
     /**

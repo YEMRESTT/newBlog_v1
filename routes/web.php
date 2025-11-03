@@ -10,7 +10,12 @@ use App\Http\Controllers\AdminPermissionController;
 
 
 
+
 // Giriş ve kayıt sayfaları
+
+// ========================================
+// GİRİŞ VE KAYIT SAYFALARI (Mevcut)
+// ========================================
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
@@ -18,6 +23,29 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// ========================================
+// GOOGLE OAUTH ROUTE'LARI (YENİ)
+// ========================================
+// Kullanıcı "Google ile Giriş Yap" butonuna tıkladığında
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])
+    ->name('auth.google');
+
+// Google'dan geri dönüş URL'i (callback)
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])
+    ->name('auth.google.callback');
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+
+
 
 // Admin paneli (sadece giriş yapmış kullanıcı)
 //Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

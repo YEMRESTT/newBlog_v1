@@ -115,13 +115,28 @@
 
         {{-- Etkileşim butonları - Updated with modern button styling --}}
         <div class="d-flex gap-2 justify-content-between align-items-center flex-wrap pt-4 border-top">
-            <a href="{{ route('home') }}" class="btn btn-outline-secondary rounded-pill px-4 hover-lift">
-                <i class="bi bi-arrow-left me-2"></i>
-                Geri Dön
-            </a>
+                <a href="{{ route('home') }}" class="btn btn-outline-secondary rounded-pill px-4 hover-lift">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Geri Dön
+                </a>
 
             <div class="d-flex gap-2 flex-wrap">
-                @can('yorum ekle')
+
+                <a href="{{ route('posts.preview', $post->id) }}"
+                   target="_blank"
+                   class="btn btn-outline-danger rounded-pill px-4 hover-lift">
+                    <i class="bi bi-eye me-2"></i>
+                    PDF Önizle
+                </a>
+
+                <a href="{{ route('posts.download', $post->id) }}"
+                   class="btn btn-danger rounded-pill px-4 hover-lift">
+                    <i class="bi bi-file-earmark-arrow-down me-2"></i>
+                    PDF İndir
+                </a>
+
+
+            @can('yorum ekle')
                     <a href="{{ route('comments.create', $post->id) }}" class="btn btn-primary rounded-pill px-4 hover-lift">
                         <i class="bi bi-chat-left-text me-2"></i>
                         Yorum Yap

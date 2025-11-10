@@ -175,6 +175,11 @@
             <button type="submit" class="btn btn-success">Google Sheets'e Gönder</button>
         </form>
 
+
+        <form action="{{ route('posts.import') }}" method="GET" class="mt-5">
+            @csrf
+            <button type="submit" class="btn btn-success">Google Sheets'den aktar</button>
+        </form>
     </div>
 
     {{-- Sayfalama (pagination) - Eğer varsa --}}

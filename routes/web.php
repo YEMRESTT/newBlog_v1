@@ -101,3 +101,5 @@ Route::get('/posts/{id}/pdf-preview', [PostPDFController::class, 'preview'])->na
 
 
 Route::post('/posts/export-to-sheets', [PostExportController::class, 'export'])->name('posts.exportToSheets');
+// İçe Aktarma (Sheet'ten veritabanına)
+Route::get('/import/posts', [PostExportController::class, 'import'])->name('posts.import');

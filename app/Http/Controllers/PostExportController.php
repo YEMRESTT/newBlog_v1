@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Revolution\Google\Sheets\Facades\Sheets;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PostExportController extends Controller
 {
@@ -70,6 +72,68 @@ class PostExportController extends Controller
 
         } catch (\Exception $e) {
             // API veya bağlantı hatası durumunda kullanıcıya bilgi ver
+            return back()->with('error', 'Google Sheets API hatası: ' . $e->getMessage());
+        }
+    }
+    /**
+     * Google Sheets'ten veri çekip posts tablosuna ekler.
+     */
+    public function import(Request $request)
+    {
+        $spreadsheetId = env('SHEETS_SPREADSHEET_ID');
+        // NOT: Verileri çekeceğiniz sekmenin adını buraya yazın
+        $sheetName = 'Ekle';
+
+        if (empty($spreadsheetId)) {
+            return back()->with('error', 'Google Sheet ID (.env dosyasında SHEETS_SPREADSHEET_ID) ayarlanmamış.');
+        }
+
+        try {
+            // 1) Sheet dosyasından tüm verileri çek
+            $data = Sheets::spreadsheet($spreadsheetId)
+                ->sheet($sheetName)
+                ->get();
+
+            // Veri gelmezse (Başlık satırı dahil)
+            if ($data->isEmpty() || $data->count() < 1) {
+                return back()->with('error', 'Belirtilen sheet dosyasında veri bulunamadı.');
+            }
+
+            // İlk satırı (başlıkları) atla
+            $data->pull(0);
+            $importedCount = 0;
+
+            // Postları atamak için veritabanındaki ilk kullanıcıyı bul (Zorunlu ilişkiyi sağlamak için)
+            $defaultUser = Auth::user();
+            if (!$defaultUser) {
+                return back()->with('error', 'İçe aktarma işlemi için atanacak bir kullanıcı bulunamadı (users tablosu boş).');
+            }
+
+            // 2) Gelen veriyi döngüye al ve Post modeline kaydet
+            foreach ($data as $row) {
+                // Sheet dosyanızdaki sütun sırasına dikkat edin!
+                // Örnek: [A: Başlık, B: İçerik, C: Resim Yolu, D: Okunma Sayısı]
+                $postData = [
+                    'title' => $row[0] ?? null,
+                    'content' => $row[1] ?? null,
+                    'image' => $row[2] ?? null,
+                    'read_count' => $row[3] ?? 0,
+                    'user_id' => $defaultUser->id,
+                ];
+
+                // Gerekli alanların dolu olup olmadığını kontrol et
+                if (empty($postData['title']) || empty($postData['content'])) {
+                    continue;
+                }
+
+                // Yeni postu oluştur
+                Post::create($postData);
+                $importedCount++;
+            }
+
+            return back()->with('success', $importedCount . ' adet post, Google Sheets dosyasından başarıyla içeri aktarıldı.');
+
+        } catch (Exception $e) {
             return back()->with('error', 'Google Sheets API hatası: ' . $e->getMessage());
         }
     }

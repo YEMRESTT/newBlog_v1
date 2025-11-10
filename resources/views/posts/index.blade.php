@@ -170,6 +170,11 @@
             @endforelse
             </tbody>
         </table>
+        <form action="{{ route('posts.exportToSheets') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-success">Google Sheets'e Gönder</button>
+        </form>
+
     </div>
 
     {{-- Sayfalama (pagination) - Eğer varsa --}}

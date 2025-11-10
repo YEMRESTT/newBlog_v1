@@ -8,6 +8,7 @@ use App\http\controllers\CommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminPermissionController;
 use App\Http\Controllers\PostPDFController;
+use App\Http\Controllers\PostExportController;
 
 
 // Giriş ve kayıt sayfaları
@@ -98,3 +99,5 @@ Route::get('/post/{id}/pdf', [PostPDFController::class, 'generatePDF'])->name('p
 
 Route::get('/posts/{id}/pdf-preview', [PostPDFController::class, 'preview'])->name('posts.preview');
 
+
+Route::post('/posts/export-to-sheets', [PostExportController::class, 'export'])->name('posts.exportToSheets');
